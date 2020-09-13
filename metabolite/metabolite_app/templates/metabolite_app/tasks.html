@@ -11,7 +11,28 @@
     </p>
   <br>
 
-  <button type="submit" class="btn btn-secondary">Perform Operation 1</button>
-  <button type="submit" class="btn btn-secondary">Perform Operation 2</button>
-  <button type="submit" class="btn btn-secondary">Perform Operation 3</button>
+  <a href="{% url 'result' 1 %}"><button type="submit" class="btn btn-secondary">Perform Operation 1</button></a>
+  <a href="{% url 'result' 2 %}"><button type="submit" class="btn btn-secondary">Perform Operation 2</button></a>
+  <a href="{% url 'result' 3 %}"><button type="submit" class="btn btn-secondary">Perform Operation 3</button></a>
+  
+  {% if file_path %}
+  <table class="table bg-light mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Operation</th>
+        <th scope="col">Dataset</th>
+      </tr>
+    </thead>
+  {% for file,opr in file_path %}
+    <tbody>
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ opr }}</td>
+        <td><a href="{{ file }}" class="btn btn-secondary">Download</a></td>
+      </tr>
+    </tbody>
+  {% endfor %}
+  </table>
+  {% endif %}
 {% endblock %}

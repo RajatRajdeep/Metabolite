@@ -15,6 +15,7 @@ djangorestframework = "*"
 django-crispy-forms = "*"
 xlrd = "*"
 requests = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.7"
