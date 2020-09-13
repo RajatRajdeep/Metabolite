@@ -1,0 +1,17 @@
+{% extends 'metabolite_app/base.html' %}
+
+{% block content %}
+  <h1 class="cover-heading">Operations on DataSet</h1>
+  <br>
+    <p class="lead">Operation 1 : Filter out all the data for metabolite ids ending with: ‘PC’, ‘LPC’ and ‘plasmalogen’.
+    </p>
+    <p class="lead">Operation 2 : Add a new column in the parent dataset with the name “Retention Time Roundoff (in mins)”.
+    </p>
+    <p class="lead">Operation 3 : Find the mean of all the metabolites which have same "Retention Time Roundoff" across all the samples.
+    </p>
+  <br>
+
+  <button type="submit" class="btn btn-secondary">Perform Operation 1</button>
+  <button type="submit" class="btn btn-secondary">Perform Operation 2</button>
+  <button type="submit" class="btn btn-secondary">Perform Operation 3</button>
+{% endblock %}

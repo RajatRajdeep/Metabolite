@@ -1,6 +1,14 @@
 {% extends 'metabolite_app/base.html' %}
 
 {% block content %}
+  <h1 class="cover-heading">Metabolite Dataset</h1>
+  <br>
+    <p class="lead">Cover is a one-page template for building simple and
+        beautiful home pages. Download, edit the text, and add your own 
+        fullscreen background photo to make it your own.
+    </p>
+  <br>
+  
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
