@@ -14,10 +14,17 @@ def home(request):
         if response.status_code == 201:
             request.session["document"] = response.json()['document']
             return redirect('tasks')
-    form = DocumentForm()
-    return render(request, 'metabolite_app/home.html', {
-        'form': form
-    })
+        else:
+            context = response.json()
+            context['form'] = DocumentForm()
+            return render(request, 'metabolite_app/home.html', context=context)
+
+    if request.method == 'GET':
+        form = DocumentForm()
+        context = {
+            'form':form,
+        }
+        return render(request, 'metabolite_app/home.html', context=context)
 
 def tasks(request):
     if request.method == 'GET':
