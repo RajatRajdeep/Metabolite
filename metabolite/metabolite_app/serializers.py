@@ -7,8 +7,9 @@ class DocumentSerializer(serializers.ModelSerializer):
 		model = Document
 		fields = '__all__'
 
+	# Validate file extension
 	def validate_document(self, value):
-		root, ext = os.path.splitext(str(value))
+		_, ext = os.path.splitext(str(value))
 		if ext!='.xlsx':
 			raise serializers.ValidationError("File extension mst be .xlsx")
 		return value

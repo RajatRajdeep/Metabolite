@@ -2,46 +2,41 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import DocumentForm
 import requests
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
+from metabolite.settings import BASE_URL
 
-BASE_URL = settings.BASE_URL
-
-@csrf_exempt
 def home(request):
     if request.method == 'POST':
         response = requests.post(BASE_URL+'/upload', files={'document':request.FILES['document']})
         if response.status_code == 201:
-            request.session["document"] = response.json()['document']
+            # Document id stored in session
+            request.session["doc_id"] = response.json()['id']
             return redirect('tasks')
         else:
             context = response.json()
-            context['form'] = DocumentForm()
-            return render(request, 'metabolite_app/home.html', context=context)
 
     if request.method == 'GET':
-        form = DocumentForm()
-        context = {
-            'form':form,
-        }
-        return render(request, 'metabolite_app/home.html', context=context)
+        # Reset Document id stored in session
+        request.session["doc_id"] = None
+        context = {}
 
+    context['form'] = DocumentForm()
+    return render(request, 'metabolite_app/home.html', context=context)
+    
 def tasks(request):
     if request.method == 'GET':
-        context={}
-        context["path"] = []
-        return render(request, 'metabolite_app/tasks.html', context=context)
+        return render(request, 'metabolite_app/tasks.html')
 
 def showresult(request, task_id):
     if request.method == 'GET':
+        # Post request for different operations to get response
         if task_id==1:
-            response = requests.post(BASE_URL+'/filter_metabolites', data = {'document':request.session["document"]})
+            response = requests.post(BASE_URL+'/filter_metabolites', data = {'doc_id':request.session["doc_id"]})
             context = response.json()
         elif task_id==2:
-            response = requests.post(BASE_URL+'/roundoff_retention', data = {'document':request.session["document"]})
+            response = requests.post(BASE_URL+'/roundoff_retention', data = {'doc_id':request.session["doc_id"]})
             context = response.json()
         elif task_id==3:
-            response = requests.post(BASE_URL+'/mean_retention', data = {'document':request.session["document"]})
+            response = requests.post(BASE_URL+'/mean_retention', data = {'doc_id':request.session["doc_id"]})
             context = response.json()
         else:
             return HttpResponse('Invalid Request')

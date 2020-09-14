@@ -1,6 +1,7 @@
 from django.urls import path
 from .api import UploadDocumentView, FilterMetabolitesView, RoundOffRetentionView, MeanRetentionView
 from .views import home, tasks, showresult
+
 urlpatterns = [
 	path('', home, name='home'),
     path('tasks', tasks, name='tasks'),

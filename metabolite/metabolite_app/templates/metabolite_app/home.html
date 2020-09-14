@@ -14,7 +14,7 @@
     {{ form.as_p }}
     <button type="submit" class="btn btn-lg btn-secondary">Upload</button>
     {% if document %}
-      <div class="alert alert-light mt-2" role="alert">
+      <div class="alert alert-danger mt-2" role="alert">
       {% for err in document %}
       <span>{{err}}</span>
       {% endfor %}
