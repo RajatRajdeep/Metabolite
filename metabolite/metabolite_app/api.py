@@ -42,10 +42,9 @@ class FilterMetabolitesView(APIView):
         lpc.to_excel(lpcfile_path)
         plasmalogen.to_excel(plasmalogenfile_path)
 
-        print(default_storage.url(document_media_path+'output_pc.xlsx'))
         data = {'file_path':[
             (default_storage.url(document_media_path+'output_pc.xlsx'), 'Extract metabolite ids ending with: PC'),
-            (default_storage.url(document_media_path+'output_pc.xlsx'), 'Extract metabolite ids ending with: LPC'),
+            (default_storage.url(document_media_path+'output_lpc.xlsx'), 'Extract metabolite ids ending with: LPC'),
             (default_storage.url(document_media_path+'output_plasmalogen.xlsx'), 'Extract metabolite ids ending with: plasmalogen')
             ]}
         return JsonResponse(data, status=status.HTTP_201_CREATED)
